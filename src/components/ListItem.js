@@ -9,11 +9,10 @@ class ListItem extends React.Component {
 
     renderDescription(){
         const {item} = this.props.library
-        const {selectedLibraryId} = this.props
+        const {expanded} = this.props
 
-        if(item.id === selectedLibraryId){
+        if(expanded){
             return (
-                
                 <Text> {item.description} </Text>
             )
         }
@@ -47,8 +46,10 @@ const styles = {
     }
 }
 
-const mapStateToProps = state => {
-    return {selectedLibraryId: state.selectedLibraryId}
+const mapStateToProps = (state, ownProps) => {
+    const expanded = state.selectedLibraryId === ownProps.library.item.id
+
+    return {expanded}
 }
 
 export default connect(mapStateToProps, actions)(ListItem);
